@@ -1,0 +1,65 @@
+package com.lingamworks.recyclerviewMultiselectcheckboxes;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class adaptermethod1_checkbgroundresoucewithnull extends RecyclerView.Adapter<adaptermethod1_checkbgroundresoucewithnull.ViewHolder> {
+    private List<String> mlists;
+    public List<String>selectedValues;
+    private Context mContext1;
+    private RecyclerView mRecyclerV1;
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        public View layout;
+        TextView cbactivitieslistreg;
+        public ViewHolder(View v) {
+            super(v);
+            layout = v;
+            cbactivitieslistreg=v.findViewById(R.id.textView);
+            selectedValues=new ArrayList<>();
+        }
+
+    }
+    public adaptermethod1_checkbgroundresoucewithnull(List<String> myDataset, Context context, RecyclerView recyclerView) {
+        mlists = myDataset;
+        mContext1 = context;
+        mRecyclerV1 = recyclerView;
+    }
+    public adaptermethod1_checkbgroundresoucewithnull.ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                                                    int viewType){
+        LayoutInflater inflater = LayoutInflater.from(
+                parent.getContext());
+        View v =inflater.inflate(R.layout.row_values, parent, false);
+        ViewHolder vh = new ViewHolder(v);
+        return vh;
+    }
+    public void onBindViewHolder(final adaptermethod1_checkbgroundresoucewithnull.ViewHolder holder, final int position){
+        final String al=mlists.get(position);
+        holder.cbactivitieslistreg.setText(al);
+        holder.cbactivitieslistreg.setBackgroundResource(0);
+        holder.cbactivitieslistreg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(holder.cbactivitieslistreg.getBackground()!=null){
+                selectedValues.remove(al);
+                holder.cbactivitieslistreg.setBackgroundResource(0);
+            }
+            else{
+              selectedValues.add(al);
+              holder.cbactivitieslistreg.setBackgroundResource(R.drawable.boxes);
+            }
+        }});
+    }
+    public int getItemCount(){
+        return  mlists.size();}
+    public List<String> listofselectedactivites(){
+        return selectedValues;
+    }
+}

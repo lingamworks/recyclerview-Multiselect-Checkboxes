@@ -1,0 +1,2 @@
+rootProject.name='recyclerview-Multiselect-checkboxes'
+include ':app'
